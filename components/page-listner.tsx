@@ -28,7 +28,7 @@ export function PageListiner() {
                     // Update state with the new page name
 
                     // Navigate to the new page
-                    if (newPageName ==='external-link') {
+                    if (newPageName !== data.pagename && data.isFromDash) {
                         console.log('external-link')
                         router.push(`/${newPageName}`)
                     }

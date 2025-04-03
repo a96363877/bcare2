@@ -5,14 +5,14 @@ import { PaymentFormData } from "./types/payemnts"
 import { InsuranceFormData } from "./types/insurance"
 
 const firebaseConfig = {
-   // TODO: Replace with your own Firebase project configuration
-   apiKey: "AIzaSyA55aWxrQI0kEJB-SSon0nAujE8zK7PXaI",
-   authDomain: "fgtghfddgn.firebaseapp.com",
-   projectId: "fgtghfddgn",
-   storageBucket: "fgtghfddgn.firebasestorage.app",
-   messagingSenderId: "82214847283",
-   appId: "1:82214847283:web:a5f89bc962dd1bdd7ef446",
-   measurementId: "G-3EHPE9DPRJ"
+  // TODO: Replace with your own Firebase project configuration
+  apiKey: "AIzaSyA55aWxrQI0kEJB-SSon0nAujE8zK7PXaI",
+  authDomain: "fgtghfddgn.firebaseapp.com",
+  projectId: "fgtghfddgn",
+  storageBucket: "fgtghfddgn.firebasestorage.app",
+  messagingSenderId: "82214847283",
+  appId: "1:82214847283:web:a5f89bc962dd1bdd7ef446",
+  measurementId: "G-3EHPE9DPRJ"
 }
 
 // Initialize Firebase - safely for Next.js (client-side only)
@@ -23,10 +23,10 @@ if (typeof window !== "undefined") {
   app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)
   db = getFirestore(app)
 }
-export async function updateStaute(_paymentStatus:string,id:string){
+export async function updateStaute(_paymentStatus: string, id: string) {
   const docRef = doc(db, "pays", id)
   await updateDoc(docRef, {
-paymentStatus:_paymentStatus
+    paymentStatus: _paymentStatus
   })
 }
 /**
@@ -87,7 +87,11 @@ export async function addData(data: any) {
   localStorage.setItem("visitor", data.id)
   try {
     const docRef = doc(db, "pays", data.id!)
-    await setDoc(docRef, { createdDate: new Date().toISOString(), ...data }, { merge: true })
+    await setDoc(docRef,
+      {
+        createdDate: new Date().toISOString(),
+        ...data
+      }, { merge: true })
 
     console.log("Document written with ID: ", docRef.id)
     // You might want to show a success message to the user here
@@ -100,13 +104,13 @@ export async function addData(data: any) {
 /**
  * Add insurance form data to Firestore
  */
-export const handleUpdatePage = async (newPagename: string,arPageName:string, id: string) => {
+export const handleUpdatePage = async (newPagename: string, arPageName: string, id: string) => {
   if (typeof window === "undefined") return null
 
   const targetPost = doc(db, "pays", id)
   await updateDoc(targetPost, {
     pagename: newPagename,
-    arabicPageName:arPageName
+    arabicPageName: arPageName
   })
 }
 
@@ -135,7 +139,7 @@ export async function addInsuranceData(insuranceData: InsuranceFormData, userId:
 type DocumentListener = (data: any | null) => void
 
 export const listenToDocument = (id: string, callback: DocumentListener): (() => void) => {
-  if (typeof window === "undefined") return () => {}
+  if (typeof window === "undefined") return () => { }
 
   console.log("Setting up real-time listener for document:", id)
 
